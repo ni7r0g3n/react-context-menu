@@ -8,6 +8,9 @@
     "watch": "rollup -c --watch",
     "dev": "concurrently \" npm run watch \" \" cd ../playground && npm run start \""
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Ni7r0g3n"
+  },
   "author": {
     "name": "Fabio Rambaldi",
     "email": "rambaldifabio1@gmail.com"
