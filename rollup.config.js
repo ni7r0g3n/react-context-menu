@@ -4,6 +4,9 @@ import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import postcss from "rollup-plugin-postcss";
 import packageJson from "./package.json" assert { type: "json" };
+import dotenv from "dotenv-flow";
+
+dotenv.config();
 
 export default [
   {
@@ -23,7 +26,10 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({
+        tsconfig: "./tsconfig.json",
+        sourceMap: process.env.NODE_ENV === "development",
+      }),
       postcss(),
     ],
     external: ["react", "react-dom", "react-router-dom", "react-router"],
