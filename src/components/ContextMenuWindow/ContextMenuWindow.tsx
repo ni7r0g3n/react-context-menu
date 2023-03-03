@@ -69,7 +69,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     <div className='container' style={{top: screenSize.height, left: screenSize.width, ...props.menuStyle?.container}}>
         {props.items.map((item: ContextMenuItem, index) => {
             return (
-                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={'menuRow'} onClick={item.onRightClick} style={{...menuRowStyle(index), ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
+                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={'menuRow'} onClick={item.onClick} style={{...menuRowStyle(index), ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
                     <div>{item.label}</div>
                 </div>
             )

@@ -13,7 +13,7 @@ interface ContextMenuProps {
 
 interface ContextMenuItem {
     label: string | React.ReactNode;
-    onRightClick: () => void; 
+    onClick: () => void; 
     style?: React.CSSProperties;
     hoverStyle?: React.CSSProperties;
 }
