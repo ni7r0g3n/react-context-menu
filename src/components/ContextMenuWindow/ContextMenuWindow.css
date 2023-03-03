@@ -1,0 +1,40 @@
+:root{
+    --radius: 10px;
+}
+
+.container {
+    display: flex;
+    height: fit-content;
+    /* width: fit-content; */
+    position: absolute;
+    overflow: wrap;
+    font-size: 1rem;
+    border-radius: var(--radius);
+    background-color: #fff;
+    color: black;
+    flex-wrap: wrap;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menuRow {
+    padding: 1rem;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.menuRow:hover {
+    background-color: #e6e6e6;
+    
+}
+
+.firstRow {
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+}
+
+.lastRow {
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+}
