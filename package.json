@@ -1,6 +1,6 @@
 {
   "name": "@ni7r0g3n/react-context-menu",
-  "version": "0.0.9", 
+  "version": "0.0.10", 
   "description": "React custom context menu",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,7 +31,8 @@
     "rollup-plugin-postcss": "^4.0.2",
     "tslib": "^2.5.0",
     "typescript": "^4.9.5",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "dotenv-flow": "^3.2.0"
   },
   "peerDependencies": {
     "react": "^18.0.0",
@@ -44,8 +45,5 @@
   ],
   "types": "dist/index.d.ts",
   "type": "module",
-  "dependencies": {
-    "dotenv-flow": "^3.2.0"
-  },
   "repository":"https://github.com/ni7r0g3n/react-context-menu"
 }
