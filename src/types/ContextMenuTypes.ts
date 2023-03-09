@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
 
-interface ContextMenuProps extends ContextMenuEvents {
+interface ContextMenuProps extends ContextMenuEvents, ContextMenuControllerSetter {
     items: ContextMenuItem[];
     children: React.ReactNode;
     adaptive?: boolean;
@@ -14,7 +14,7 @@ interface ContextMenuProps extends ContextMenuEvents {
         row?: React.CSSProperties;
     }
 }
-
+ 
 interface ContextMenuEvents {
     onOpen?: () => void;
     onClose?: () => void;
@@ -26,6 +26,16 @@ interface ContextMenuEvents {
     onOutAnimationEnd?: () => void;
 }
 
+interface ContextMenuControllerSetter {
+    setController?: React.Dispatch<React.SetStateAction<ContextMenuController | undefined>>
+}
+
+interface ContextMenuController {
+    open: (position: {x: number, y: number}) => void;
+    close: () => void;
+    clickItem: (item: number) => void;
+}
+
 interface ContextMenuItem {
     label: string | React.ReactNode;
     onClick: () => void; 
@@ -34,4 +44,4 @@ interface ContextMenuItem {
 }
 
 
-export type { ContextMenuProps, ContextMenuItem };
+export type { ContextMenuProps, ContextMenuItem, ContextMenuController }; 
