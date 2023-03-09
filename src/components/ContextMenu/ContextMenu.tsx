@@ -14,18 +14,20 @@ const ContextMenu = (props: ContextMenuProps) => {
         setMousePosition({x: e.pageX, y: e.pageY});
     }
 
-    useEffect(() => {
-        const handleClick = () => setShow(false);
-        window.addEventListener("click", handleClick);
-        return () => {
-          window.removeEventListener("click", handleClick);
-        };
-      }, []);
+    const onTransitionEnd = () => {
+        setShow(false)
+    }
 
     return (
         <div onContextMenu={onContextMenu}>
             {props.children}
-            {show ? <ContextMenuWindow position={mousePosition} adaptive={props.adaptive} items={props.items} menuStyle={props.menuStyle}/> : null}
+            {show ? <ContextMenuWindow 
+                        position={mousePosition} 
+                        onTransitionEnd={onTransitionEnd} 
+                        animated={props.animated} 
+                        adaptive={props.adaptive} 
+                        items={props.items} 
+                        menuStyle={props.menuStyle}/> : null}
         </div>
     )
 }

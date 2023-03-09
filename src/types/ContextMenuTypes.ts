@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 
 
 interface ContextMenuProps {
@@ -5,6 +6,10 @@ interface ContextMenuProps {
     children: React.ReactNode;
     classNames?: string[];
     adaptive?: boolean;
+    animated?: boolean & {
+        duration?: CSSProperties['animationDuration'];
+        animation?: "zoom" | "fade" | "slideUp" | "slideDown" | "slideLeft" | "slideRight";
+    }
     menuStyle?: {
         container?: React.CSSProperties;
         row?: React.CSSProperties;
