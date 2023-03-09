@@ -13,7 +13,7 @@ The component is very easy to use.
 Wrap the component to the area you want to use the context menu on and pass an array of options.
 The "label" can be both a string or a component.
 ```javascript
-import { ContextMenu } from '@Ni7r0g3n/react-context-menu';
+import { ContextMenu } from '@ni7r0g3n/react-context-menu';
 
 function App() {
 
