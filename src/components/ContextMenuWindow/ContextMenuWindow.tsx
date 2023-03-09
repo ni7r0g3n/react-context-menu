@@ -17,7 +17,11 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
         }
         setOpen(true)
         window.addEventListener("click", handleClick);
+        if (props.onAfterOpen)
+            props.onAfterOpen()
         return () => {
+            if (props.onClose)
+                props.onClose()
             window.removeEventListener("click", handleClick);
         };
     }, []);
@@ -65,9 +69,13 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
     const onMouseEnter = (index) => {
         setHovering(index)
+        if (props.onItemHoverIn)
+            props.onItemHoverIn(props.items[index])
     }
 
     const onMouseLeave = () => {
+        if (props.onItemHoverOut)
+            props.onItemHoverOut(props.items[hovering])
         setHovering(-1)
     }
 
@@ -94,8 +102,16 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     }, [open])
 
     const transitionEnd = () => {
-        if (!open)
+        if (!open){
+            if (props.onOutAnimationEnd)
+                props.onOutAnimationEnd()
             props.onTransitionEnd()
+            return;
+        } 
+
+        if (props.onInAnimationEnd)
+            props.onInAnimationEnd()
+        
     }
 
     return (

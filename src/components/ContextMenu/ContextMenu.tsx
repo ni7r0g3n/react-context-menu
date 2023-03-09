@@ -12,10 +12,14 @@ const ContextMenu = (props: ContextMenuProps) => {
         e.preventDefault();
         setShow(true);
         setMousePosition({x: e.pageX, y: e.pageY});
+        if (props.onOpen)
+            props.onOpen();
     }
 
     const onTransitionEnd = () => {
         setShow(false)
+        if (props.onBeforeClose)
+            props.onBeforeClose(); 
     }
 
     return (
@@ -24,10 +28,8 @@ const ContextMenu = (props: ContextMenuProps) => {
             {show ? <ContextMenuWindow 
                         position={mousePosition} 
                         onTransitionEnd={onTransitionEnd} 
-                        animated={props.animated} 
-                        adaptive={props.adaptive} 
-                        items={props.items} 
-                        menuStyle={props.menuStyle}/> : null}
+                        {...props}
+                        /> : null}
         </div>
     )
 }
