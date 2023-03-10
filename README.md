@@ -2,6 +2,10 @@
 # react-context-menu 
 React context menu is a simple library to implement custom context menus in your react application. This package is still in development, feel free to report bugs, ask question and make suggestions.
 
+## Known issues:
+- I'm implementing css modules as right now it uses basic css imports. This means that there might be styiling conflicts if we used the same class names. Until this is fixed it's possible to use css modules yourself in your project to avoid conflicts. 
+- (Typescript) When assigning the `animated` prop as an object you must specify the type (`ContextMenuProps['animated']`) using the `as` keyword or ts goes apeshit. I'll have to figure how to force the component to accept both a boolean and an object of that type.
+
 ## Installation
 ### npm
 `npm i @ni7r0g3n/react-context-menu`
