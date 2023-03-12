@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ContextMenuWindowProps, ContextMenuItem } from '../../types';
-import './ContextMenuWindow.css'
+import styles from './ContextMenuWindow.module.css'
 
 
 const ContextMenuWindow = (props: ContextMenuWindowProps) => {
@@ -11,6 +11,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
     useEffect(() => {
         const handleClick = () => {
+            console.log("click")
             setOpen(false)
             if (props.animated === false)
                 props.onTransitionEnd()
@@ -84,21 +85,22 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
             return item.hoverStyle
         return {}
     }
-
-    const containerStyle = useMemo(() => {
-        if (props.animated === false)
-            return 'container'
-        return 'container' + (open ? ' animated' : ' animatedOut')
-    }, [open])
-
+    
     const getAnimationFromProps = (direction: 'In' | 'Out') => {
         return (props.animated?.animation ?? 'zoom')  + direction
     }
 
+    const containerStyle = useMemo(() => {
+        if (props.animated === false)
+            return styles.container
+        return styles.container + " " + styles[getAnimationFromProps(open ? "In" : "Out")]
+    }, [open])
+
+
     const animationStyle = useMemo(() => {
         if (props.animated === false)
             return {}
-        return {animationName: open ? getAnimationFromProps('In') : getAnimationFromProps('Out'), animationDuration: props.animated?.duration ?? '0.2s'}
+        return {animationDuration: props.animated?.duration ?? '0.2s'}
     }, [open])
 
     const transitionEnd = () => {
@@ -118,7 +120,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     <div className={containerStyle} ref={container} onAnimationEnd={transitionEnd} style={{top: screenSize.height, left: screenSize.width, ...animationStyle, ...props.menuStyle?.container}}>
         {props.items.map((item: ContextMenuItem, index) => {
             return (
-                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={'menuRow'} onClick={item.onClick} style={{...menuRowStyle(index), ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
+                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={styles.menuRow} onClick={item.onClick} style={{...menuRowStyle(index), ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
                     <div>{item.label}</div>
                 </div>
             )
