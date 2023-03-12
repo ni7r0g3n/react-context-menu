@@ -1,6 +1,6 @@
 {
   "name": "@ni7r0g3n/react-context-menu",
-  "version": "0.1.1", 
+  "version": "0.1.2", 
   "description": "React custom context menu",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
