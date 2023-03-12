@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from "react";
 import { ContextMenuProps } from "../../types";
 import ContextMenuWindow from "../ContextMenuWindow/ContextMenuWindow";
-import './ContextMenu.css'
+import styles from './ContextMenu.module.css'
 
 const ContextMenu = (props: ContextMenuProps) => {
     const [show, setShow] = useState(false);
