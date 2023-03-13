@@ -3,8 +3,11 @@
 React context menu is a simple library to implement custom context menus in your react application. This package is still in development, feel free to report bugs, ask question and make suggestions.
 
 ## Known issues:
-- I'm implementing css modules as right now it uses basic css imports. This means that there might be styiling conflicts if we used the same class names. Until this is fixed it's possible to use css modules yourself in your project to avoid conflicts. 
 - (Typescript) When assigning the `animated` prop as an object you must specify the type (`ContextMenuProps['animated']`) using the `as` keyword or ts goes apeshit. I'll have to figure how to force the component to accept both a boolean and an object of that type.
+- Right now the context menu always appears with the top-left corner on your pointer, this means that the right and bottom borders of the window might squish the menu if opened too close. It would be ideal to have it open dynamically around the pointer depending on the size and distance from the borders of the window. I'll have to do some styling kung-fu here.
+
+## News:
+- I implemented css modules, now there won't be any styling conflicts
 
 ## Installation
 ### npm
@@ -135,8 +138,7 @@ will result in
 
 
 ## Planned features
-- ~~ Animation support ~~
 - Nested menus
 - Better styling (?)
-- ... I'll have to think about more
+- Dynamic positioning
 - Feel free to make suggestions
