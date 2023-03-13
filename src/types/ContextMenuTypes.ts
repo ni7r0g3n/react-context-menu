@@ -1,9 +1,9 @@
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 
 
 interface ContextMenuProps extends ContextMenuEvents, ContextMenuControllerSetter {
     items: ContextMenuItem[];
-    children: React.ReactNode;
+    children: Array<ChildrenWithItems>;
     adaptive?: boolean;
     animated?: boolean & {
         duration?: CSSProperties['animationDuration'];
@@ -13,6 +13,10 @@ interface ContextMenuProps extends ContextMenuEvents, ContextMenuControllerSette
         container?: React.CSSProperties;
         row?: React.CSSProperties;
     }
+}
+
+interface ChildrenWithItems extends JSX.Element, JSX.IntrinsicElements {
+    items: ContextMenuItem[];
 }
  
 interface ContextMenuEvents {
