@@ -11,7 +11,15 @@ interface ContextMenuProps extends ContextMenuEvents, ContextMenuControllerSette
     }
     menuStyle?: {
         container?: React.CSSProperties;
-        row?: React.CSSProperties;
+        row?: {
+            normal: React.CSSProperties,
+            hover?: React.CSSProperties
+        };
+    }
+    variant?: {
+        opacity?: "solid" | "transparent";
+        theme?: "light" | "dark";
+        elevation?: "raised" | "flat";
     }
 }
  

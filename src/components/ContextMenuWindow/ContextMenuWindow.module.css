@@ -1,21 +1,47 @@
 :root{
-    --radius: 10px;
+    --radius: 7px;
 }
 
 .container {
     display: flex;
     height: fit-content;
-    /* width: fit-content; */
     position: absolute;
     overflow: wrap;
     font-size: 1rem;
     border-radius: var(--radius);
-    background-color: #fff;
-    color: black;
+    
     flex-wrap: wrap;
     flex-direction: column;
     cursor: pointer;
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 12px 0px rgba(0, 0, 0, 0.5);
+}
+
+.light-transparent {
+    background-color: rgba(240, 240, 240, 0.90);
+    color: rgb(50, 50, 50);
+}
+
+.dark-transparent {
+    background-color: rgba(50, 50, 50, 0.90);
+    color: rgb(240, 240, 240);
+}
+
+.light-solid {
+    background-color: rgb(240, 240, 240);
+    color: rgb(50, 50, 50);
+}
+
+.dark-solid {
+    background-color: rgb(50, 50, 50);
+    color: rgb(240, 240, 240);
+}
+
+.raised {
+    box-shadow: 0 1px 12px 0px rgba(0, 0, 0, 0.5);
+}
+
+.flat {
+    box-shadow: none;
 }
 
 .zoomIn {
@@ -68,18 +94,21 @@
     animation: slideUpOut 0.2s ease-in-out forwards;
 }
 
-
-
 .menuRow {
-    padding: 1rem;
+    padding: 0.8rem 1.2rem;
     display: flex;
     align-content: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .menuRow:hover {
-    background-color: #e6e6e6;
-    
+    background-color: rgb(200, 200, 200, 1);
+    color: black;
+}
+
+.dark .menuRow:hover {
+    background-color: rgb(240, 240, 240, 1);
+    color: #323232;
 }
 
 .firstRow {
