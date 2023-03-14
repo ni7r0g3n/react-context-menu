@@ -19,8 +19,9 @@ const ContextMenu = (props: ContextMenuProps) => {
     }
 
     const openMenu = (position: {x: number, y: number}) => {
-        setShow(true)
+        
         setMousePosition(position)
+        setShow(true)
         if (props.onOpen)
             props.onOpen();
     }

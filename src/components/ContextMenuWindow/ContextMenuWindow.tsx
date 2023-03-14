@@ -29,9 +29,9 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     
     const menuRowStyle = (index): React.CSSProperties => {
         if (index === 0)
-            return {borderTopRightRadius: props.menuStyle?.row?.borderRadius || 10, borderTopLeftRadius: props.menuStyle?.row?.borderRadius || 10}
+            return {borderTopRightRadius: props.menuStyle?.row?.normal.borderRadius || 7, borderTopLeftRadius: props.menuStyle?.row?.normal.borderRadius || 7}
         if (index === props.items.length - 1)
-            return {borderBottomRightRadius: props.menuStyle?.row?.borderRadius || 10, borderBottomLeftRadius: props.menuStyle?.row?.borderRadius || 10}
+            return {borderBottomRightRadius: props.menuStyle?.row?.normal.borderRadius || 7, borderBottomLeftRadius: props.menuStyle?.row?.normal.borderRadius || 7}
         return {}
     }
 
@@ -39,7 +39,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
         const styles = props.menuStyle?.row
         if (!styles)
             return {}
-        delete styles.borderRadius
+        delete styles.normal.borderRadius
         return styles
     }
 
@@ -82,7 +82,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
     const hoveringStyle = (item, index) => {
         if (hovering === index)
-            return item.hoverStyle
+            return {...props.menuStyle?.row?.hover, ...item.hoverStyle}
         return {}
     }
     
@@ -93,7 +93,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     const containerStyle = useMemo(() => {
         if (props.animated === false)
             return styles.container
-        return styles.container + " " + styles[getAnimationFromProps(open ? "In" : "Out")]
+        return `${styles.container} ${styles[(props.variant?.theme ?? "light") + "-" + (props.variant?.opacity ?? "transparent")]} ${styles[props.variant?.elevation ?? "raised"]} ${styles[getAnimationFromProps(open ? "In" : "Out")]}`
     }, [open])
 
 
