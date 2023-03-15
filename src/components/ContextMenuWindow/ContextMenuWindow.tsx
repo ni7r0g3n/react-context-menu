@@ -11,7 +11,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
     useEffect(() => {
         const handleClick = () => {
-            console.log("click")
+            
             setOpen(false)
             if (props.animated === false)
                 props.onTransitionEnd()
