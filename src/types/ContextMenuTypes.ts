@@ -5,10 +5,10 @@ interface ContextMenuProps extends ContextMenuEvents, ContextMenuControllerSette
     items: ContextMenuItem[];
     children: React.ReactNode;
     adaptive?: boolean;
-    animated?: boolean & {
+    animated?: {
         duration?: CSSProperties['animationDuration'];
         animation?: "zoom" | "fade" | "slideUp" | "slideDown" | "slideLeft" | "slideRight";
-    }
+    } | boolean;
     menuStyle?: {
         container?: React.CSSProperties;
         row?: {
