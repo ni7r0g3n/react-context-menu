@@ -51,5 +51,19 @@ interface ContextMenuItem {
     hoverStyle?: React.CSSProperties;
 }
 
+interface mousePosition {
+    x: number;
+    y: number;
+}
 
-export type { ContextMenuProps, ContextMenuItem, ContextMenuController }; 
+interface mousePositionWithOrigin extends mousePosition {
+    origin: transformOrigin;
+}
+
+interface transformOrigin {
+    x: 0 | 100;
+    y: 0 | 100;
+}
+
+
+export type { ContextMenuProps, ContextMenuItem, ContextMenuController, mousePosition, transformOrigin, mousePositionWithOrigin }; 

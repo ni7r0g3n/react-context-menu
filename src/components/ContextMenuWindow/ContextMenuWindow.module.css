@@ -45,12 +45,26 @@
 }
 
 .zoomIn {
-    transform-origin: 0% 0%;
     animation: zoomIn 0.2s ease-in-out forwards;
 }
 
-.zoomOut {
+.transformOrigin-0-0 {
     transform-origin: 0% 0%;
+}
+
+.transformOrigin-0-100 {
+    transform-origin: 0% 100%;
+}
+
+.transformOrigin-100-0 {
+    transform-origin: 100% 0%;
+}
+
+.transformOrigin-100-100 {
+    transform-origin: 100% 100%;
+}
+
+.zoomOut {
     animation: zoomOut 0.2s ease-in-out forwards;
 }
 
