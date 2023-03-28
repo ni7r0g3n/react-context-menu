@@ -5,13 +5,10 @@ import styles from './ContextMenuWindow.module.css'
 
 const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
-
-    const container = useRef(null)
     const [open, setOpen] = useState(true)
 
     useEffect(() => {
         const handleClick = () => {
-            console.log("click")
             setOpen(false)
             if (props.animated === false)
                 props.onTransitionEnd()
@@ -90,10 +87,14 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
         return (props.animated?.animation ?? 'zoom')  + direction
     }
 
+    const originClassName = useMemo(() => {
+        return `transformOrigin-${props.position?.origin.x}-${props.position?.origin.y}`
+    }, [props.position?.origin.x, props.position?.origin.y])
+
     const containerStyle = useMemo(() => {
         if (props.animated === false)
             return styles.container
-        return `${styles.container} ${styles[(props.variant?.theme ?? "light") + "-" + (props.variant?.opacity ?? "transparent")]} ${styles[props.variant?.elevation ?? "raised"]} ${styles[getAnimationFromProps(open ? "In" : "Out")]}`
+        return `${styles.container} ${styles[(props.variant?.theme ?? "light") + "-" + (props.variant?.opacity ?? "transparent")]} ${styles[props.variant?.elevation ?? "raised"]} ${styles[originClassName]} ${styles[getAnimationFromProps(open ? "In" : "Out")]}`
     }, [open])
 
 
@@ -117,7 +118,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     }
 
     return (
-    <div className={containerStyle} ref={container} onAnimationEnd={transitionEnd} style={{top: screenSize.height, left: screenSize.width, ...animationStyle, ...props.menuStyle?.container}}>
+    <div ref={props.containerRef} className={containerStyle} onAnimationEnd={transitionEnd} style={{top: screenSize.height, left: screenSize.width, ...animationStyle, ...props.menuStyle?.container}}>
         {props.items.map((item: ContextMenuItem, index) => {
             return (
                 <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={styles.menuRow} onClick={item.onClick} style={{...menuRowStyle(index), ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
