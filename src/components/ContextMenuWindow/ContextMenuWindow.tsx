@@ -84,7 +84,10 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     }
     
     const getAnimationFromProps = (direction: 'In' | 'Out') => {
-        return (props.animated?.animation ?? 'zoom')  + direction
+        if (typeof props.animated != "boolean")
+            return (props.animated?.animation ?? 'zoom')  + direction
+        if (props.animated)
+            return 'zoom' + direction
     }
 
     const originClassName = useMemo(() => {
@@ -99,9 +102,11 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
 
     const animationStyle = useMemo(() => {
-        if (props.animated === false)
-            return {}
-        return {animationDuration: props.animated?.duration ?? '0.2s'}
+        if (typeof props.animated != "boolean")
+            return {animationDuration: props.animated?.duration ?? '0.2s'}
+        if (props.animated)
+            return {animationDuration: '0.2s'}
+        return {}
     }, [open])
 
     const transitionEnd = () => {
