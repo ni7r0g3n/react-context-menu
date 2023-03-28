@@ -1,4 +1,11 @@
-![Version](https://img.shields.io/badge/Version-0.1.3-brightgreen?style=flat-square) ![React](https://img.shields.io/badge/React-^18.2.0-lightblue?style=flat-square&logo=react)
+<p style="text-align:left;">
+
+<a align="left">![Version](https://img.shields.io/badge/Version-0.1.3-brightgreen?style=flat-square) ![React](https://img.shields.io/badge/React-^18.2.0-lightblue?style=flat-square&logo=react) </a>
+<a style="float: right">
+![React](https://img.shields.io/badge/Status-In_Development-orange?style=flat-square)
+</a>
+
+</p>
 
 ![Banner logo](https://user-images.githubusercontent.com/52223453/225049899-44b9e1a4-0830-415e-9707-75803e214886.png)
 

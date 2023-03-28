@@ -29,10 +29,10 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     
     const menuRowStyle = (index): React.CSSProperties => {
         if (index === 0)
-            return {borderTopRightRadius: props.menuStyle?.row?.normal.borderRadius || 7, borderTopLeftRadius: props.menuStyle?.row?.normal.borderRadius || 7}
+            return {...props.menuStyle?.row?.normal, borderTopRightRadius: props.menuStyle?.container?.borderRadius ?? 7, borderTopLeftRadius: props.menuStyle?.container?.borderRadius ?? 7}
         if (index === props.items.length - 1)
-            return {borderBottomRightRadius: props.menuStyle?.row?.normal.borderRadius || 7, borderBottomLeftRadius: props.menuStyle?.row?.normal.borderRadius || 7}
-        return {}
+            return {...props.menuStyle?.row?.normal, borderBottomRightRadius: props.menuStyle?.container?.borderRadius ?? 7, borderBottomLeftRadius: props.menuStyle?.container?.borderRadius ?? 7}
+        return {...props.menuStyle?.row?.normal}
     }
 
     const cleanStyles = () => {
@@ -64,7 +64,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     }
 
 
-    const [screenSize, setScreenSize] = useState({width: screenWidth(), height: screenHeight()});
+    const screenSize = {width: screenWidth(), height: screenHeight()};
     const [hovering, setHovering] = useState(-1);
 
 
