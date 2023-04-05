@@ -28,6 +28,7 @@ const ContextMenu = (props: ContextMenuProps) => {
 
     const onContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
+        e.stopPropagation()
         openMenu({x: e.clientX, y: e.clientY})
     }
 
