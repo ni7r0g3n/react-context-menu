@@ -26,8 +26,6 @@ interface ContextMenuProps extends ContextMenuEvents, ContextMenuControllerSette
 interface ContextMenuEvents {
     onOpen?: () => void;
     onClose?: () => void;
-    onAfterOpen?: () => void;
-    onBeforeClose?: () => void;
     onItemHoverIn?: (item: ContextMenuItem) => void;
     onItemHoverOut?: (item: ContextMenuItem) => void;
     onInAnimationEnd?: () => void;

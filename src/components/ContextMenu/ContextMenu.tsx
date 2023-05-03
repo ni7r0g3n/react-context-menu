@@ -54,16 +54,14 @@ const ContextMenu = (props: ContextMenuProps) => {
 
 
     const openMenu = (position: mousePosition) => {
-        setMousePosition(calculatePosition(position))
-        setShow(true)
         if (props.onOpen)
             props.onOpen();
+        setMousePosition(calculatePosition(position))
+        setShow(true)
     }
 
     const onTransitionEnd = () => {
         setShow(false)
-        if (props.onBeforeClose)
-            props.onBeforeClose(); 
     }
 
     const controller = {

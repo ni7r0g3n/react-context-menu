@@ -13,10 +13,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
             if (props.animated === false)
                 props.onTransitionEnd()
         }
-        setOpen(true)
         window.addEventListener("click", handleClick);
-        if (props.onAfterOpen)
-            props.onAfterOpen()
         return () => {
             if (props.onClose)
                 props.onClose()
