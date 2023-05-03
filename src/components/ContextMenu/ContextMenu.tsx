@@ -11,11 +11,6 @@ const ContextMenu = (props: ContextMenuProps) => {
     const [contextMenuSize, setContextMenuSize] = useState({width: 0, height: 0})
     const windowContainerRef = useRef(null)
 
-    useEffect(() => {
-        if (props.setController)
-            props.setController(controller)
-    }, [])
-
     useLayoutEffect(() => {
         if (windowContainerRef.current && show) {
             setContextMenuSize({
@@ -62,20 +57,6 @@ const ContextMenu = (props: ContextMenuProps) => {
 
     const onTransitionEnd = () => {
         setShow(false)
-    }
-
-    const controller = {
-        close: () => {
-            onTransitionEnd()
-        },
-        open: (position: mousePosition) => {
-            const processedPosition = calculatePosition({...position})
-            openMenu(processedPosition)
-        },
-        clickItem: (index: number) => {
-            if (props.items[index].onClick)
-                props.items[index].onClick()
-        },
     }
 
     return (

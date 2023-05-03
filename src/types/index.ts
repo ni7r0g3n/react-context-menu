@@ -1,2 +1,2 @@
-export {ContextMenuProps, ContextMenuItem, ContextMenuController} from './ContextMenuTypes';
+export {ContextMenuProps, ContextMenuItem} from './ContextMenuTypes';
 export {ContextMenuWindowProps} from './ContextMenuWindowTypes';
