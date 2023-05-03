@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrcm_docs=self.webpackChunkrcm_docs||[]).push([[71],{816:t=>{t.exports=JSON.parse('{"title":"Customization","slug":"/category/customization","permalink":"/docs/category/customization","navigation":{"previous":{"title":"Overview","permalink":"/docs/Overview"},"next":{"title":"Component variants","permalink":"/docs/Customization/Variants"}}}')}}]);
