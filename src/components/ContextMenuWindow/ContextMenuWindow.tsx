@@ -9,9 +9,10 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
     useEffect(() => {
         const handleClick = () => {
-        setOpen(false)
-        if (props.animated === false)
-            props.onTransitionEnd()
+            
+            setOpen(false)
+            if (props.animated === false)
+                props.onTransitionEnd()
         }
         window.addEventListener("click", handleClick);
         
