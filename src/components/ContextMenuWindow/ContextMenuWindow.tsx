@@ -91,10 +91,14 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
         return `transformOrigin-${props.position?.origin.x}-${props.position?.origin.y}`
     }, [props.position?.origin.x, props.position?.origin.y])
 
+    const composeDefaultVariants = () => {
+        return `${styles[(props.variant?.theme ?? "light") + "-" + (props.variant?.opacity ?? "transparent")]} ${styles[props.variant?.elevation ?? "raised"]}`
+    }
+
     const containerStyle = useMemo(() => {
         if (props.animated === false)
-            return styles.container
-        return `${styles.container} ${styles[(props.variant?.theme ?? "light") + "-" + (props.variant?.opacity ?? "transparent")]} ${styles[props.variant?.elevation ?? "raised"]} ${styles[originClassName]} ${styles[getAnimationFromProps(open ? "In" : "Out")]}`
+            return `${styles.container} ${props.menuClassNames?.container ?? composeDefaultVariants()}`
+        return `${styles['container']}  ${styles[originClassName]} ${styles[getAnimationFromProps(open ? "In" : "Out")]} ${props.menuClassNames?.container ?? composeDefaultVariants()}`
     }, [open])
 
 
@@ -123,7 +127,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     <div ref={props.containerRef} className={containerStyle} onAnimationEnd={transitionEnd} style={{top: screenSize.height, left: screenSize.width, ...animationStyle, ...props.menuStyle?.container}}>
         {props.items.map((item: ContextMenuItem, index) => {
             return (
-                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={styles.menuRow} onClick={item.onClick} style={{...menuRowStyle(index), ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
+                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={`${styles.menuRow} ${props.menuClassNames?.row ?? (styles[props.variant?.theme + "MenuRow"])} ${item.className ?? ''}`} onClick={item.onClick} style={{/*...menuRowStyle(index),*/ ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
                     <div>{item.label}</div>
                 </div>
             )

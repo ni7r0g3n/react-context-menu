@@ -16,6 +16,10 @@ interface ContextMenuProps extends ContextMenuEvents {
             hover?: React.CSSProperties
         };
     }
+    menuClassNames?:{
+        container?: string,
+        row?: string,
+    }
     variant?: {
         opacity?: "solid" | "transparent";
         theme?: "light" | "dark";
@@ -37,6 +41,7 @@ interface ContextMenuItem {
     onClick: () => void; 
     style?: React.CSSProperties;
     hoverStyle?: React.CSSProperties;
+    className?: string;
 }
 
 interface mousePosition {
