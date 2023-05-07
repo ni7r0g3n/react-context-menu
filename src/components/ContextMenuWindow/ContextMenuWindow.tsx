@@ -5,8 +5,6 @@ import styles from './ContextMenuWindow.module.css'
 
 const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
-
-    const container = useRef(null)
     const [open, setOpen] = useState(true)
 
     useEffect(() => {
@@ -16,8 +14,8 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
             if (props.animated === false)
                 props.onTransitionEnd()
         }
-        setOpen(true)
         window.addEventListener("click", handleClick);
+        
         if (props.onAfterOpen)
             props.onAfterOpen()
         return () => {
@@ -26,14 +24,6 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
             window.removeEventListener("click", handleClick);
         };
     }, []);
-    
-    const menuRowStyle = (index): React.CSSProperties => {
-        if (index === 0)
-            return {borderTopRightRadius: props.menuStyle?.row?.normal.borderRadius || 7, borderTopLeftRadius: props.menuStyle?.row?.normal.borderRadius || 7}
-        if (index === props.items.length - 1)
-            return {borderBottomRightRadius: props.menuStyle?.row?.normal.borderRadius || 7, borderBottomLeftRadius: props.menuStyle?.row?.normal.borderRadius || 7}
-        return {}
-    }
 
     const cleanStyles = () => {
         const styles = props.menuStyle?.row
@@ -64,7 +54,7 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     }
 
 
-    const [screenSize, setScreenSize] = useState({width: screenWidth(), height: screenHeight()});
+    const screenSize = {width: screenWidth(), height: screenHeight()};
     const [hovering, setHovering] = useState(-1);
 
 
@@ -87,20 +77,33 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
     }
     
     const getAnimationFromProps = (direction: 'In' | 'Out') => {
-        return (props.animated?.animation ?? 'zoom')  + direction
+        if (typeof props.animated != "boolean")
+            return (props.animated?.animation ?? 'zoom')  + direction
+        if (props.animated)
+            return 'zoom' + direction
+    }
+
+    const originClassName = useMemo(() => {
+        return `transformOrigin-${props.position?.origin.x}-${props.position?.origin.y}`
+    }, [props.position?.origin.x, props.position?.origin.y])
+
+    const composeDefaultVariants = () => {
+        return `${styles[(props.variant?.theme ?? "light") + "-" + (props.variant?.opacity ?? "transparent")]} ${styles[props.variant?.elevation ?? "raised"]}`
     }
 
     const containerStyle = useMemo(() => {
         if (props.animated === false)
-            return styles.container
-        return `${styles.container} ${styles[(props.variant?.theme ?? "light") + "-" + (props.variant?.opacity ?? "transparent")]} ${styles[props.variant?.elevation ?? "raised"]} ${styles[getAnimationFromProps(open ? "In" : "Out")]}`
+            return `${styles.container} ${props.menuClassName?.container ?? composeDefaultVariants()}`
+        return `${styles['container']}  ${styles[originClassName]} ${styles[getAnimationFromProps(open ? "In" : "Out")]} ${props.menuClassName?.container ?? composeDefaultVariants()}`
     }, [open])
 
 
     const animationStyle = useMemo(() => {
-        if (props.animated === false)
-            return {}
-        return {animationDuration: props.animated?.duration ?? '0.2s'}
+        if (typeof props.animated != "boolean")
+            return {animationDuration: props.animated?.duration ?? '0.2s'}
+        if (props.animated)
+            return {animationDuration: '0.2s'}
+        return {}
     }, [open])
 
     const transitionEnd = () => {
@@ -116,11 +119,20 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
         
     }
 
+    const onClick = (item, event) => {
+        if (item.disabled){
+            event.preventDefault()
+            event.stopPropagation()
+            return
+        }
+        item.onClick()
+    }
+
     return (
-    <div className={containerStyle} ref={container} onAnimationEnd={transitionEnd} style={{top: screenSize.height, left: screenSize.width, ...animationStyle, ...props.menuStyle?.container}}>
+    <div ref={props.containerRef} className={containerStyle} onAnimationEnd={transitionEnd} style={{top: screenSize.height, left: screenSize.width, ...animationStyle, ...props.menuStyle?.container}}>
         {props.items.map((item: ContextMenuItem, index) => {
             return (
-                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={styles.menuRow} onClick={item.onClick} style={{...menuRowStyle(index), ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
+                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={`${styles.menuRow} ${item.disabled ? (item.disabledClassName ?? styles.disabledRow) : ''} ${props.menuClassName?.row ?? (styles[props.variant?.theme + "MenuRow"])} ${item.className ?? ''}`} onClick={(event) => onClick(item, event)} style={{/*...menuRowStyle(index),*/ ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
                     <div>{item.label}</div>
                 </div>
             )

@@ -1,20 +1,24 @@
 import { CSSProperties } from "react";
 
 
-interface ContextMenuProps extends ContextMenuEvents, ContextMenuControllerSetter {
+interface ContextMenuProps extends ContextMenuEvents {
     items: ContextMenuItem[];
     children: React.ReactNode;
     adaptive?: boolean;
-    animated?: boolean & {
+    animated?: {
         duration?: CSSProperties['animationDuration'];
         animation?: "zoom" | "fade" | "slideUp" | "slideDown" | "slideLeft" | "slideRight";
-    }
+    } | boolean;
     menuStyle?: {
         container?: React.CSSProperties;
         row?: {
             normal: React.CSSProperties,
             hover?: React.CSSProperties
         };
+    }
+    menuClassName?:{
+        container?: string,
+        row?: string,
     }
     variant?: {
         opacity?: "solid" | "transparent";
@@ -25,23 +29,12 @@ interface ContextMenuProps extends ContextMenuEvents, ContextMenuControllerSette
  
 interface ContextMenuEvents {
     onOpen?: () => void;
-    onClose?: () => void;
     onAfterOpen?: () => void;
-    onBeforeClose?: () => void;
+    onClose?: () => void;
     onItemHoverIn?: (item: ContextMenuItem) => void;
     onItemHoverOut?: (item: ContextMenuItem) => void;
     onInAnimationEnd?: () => void;
     onOutAnimationEnd?: () => void;
-}
-
-interface ContextMenuControllerSetter {
-    setController?: React.Dispatch<React.SetStateAction<ContextMenuController | undefined>>
-}
-
-interface ContextMenuController {
-    open: (position: {x: number, y: number}) => void;
-    close: () => void;
-    clickItem: (item: number) => void;
 }
 
 interface ContextMenuItem {
@@ -49,7 +42,24 @@ interface ContextMenuItem {
     onClick: () => void; 
     style?: React.CSSProperties;
     hoverStyle?: React.CSSProperties;
+    className?: string;
+    disabled?: boolean;
+    disabledClassName?: string;
+}
+
+interface mousePosition {
+    x: number;
+    y: number;
+}
+
+interface mousePositionWithOrigin extends mousePosition {
+    origin: transformOrigin;
+}
+
+interface transformOrigin {
+    x: 0 | 100;
+    y: 0 | 100;
 }
 
 
-export type { ContextMenuProps, ContextMenuItem, ContextMenuController }; 
+export type { ContextMenuProps, ContextMenuItem, mousePosition, transformOrigin, mousePositionWithOrigin }; 
