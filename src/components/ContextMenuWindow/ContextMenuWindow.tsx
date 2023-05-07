@@ -9,25 +9,20 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
     useEffect(() => {
         const handleClick = () => {
-            setOpen(false)
-            if (props.animated === false)
-                props.onTransitionEnd()
+        setOpen(false)
+        if (props.animated === false)
+            props.onTransitionEnd()
         }
         window.addEventListener("click", handleClick);
+        
+        if (props.onAfterOpen)
+            props.onAfterOpen()
         return () => {
             if (props.onClose)
                 props.onClose()
             window.removeEventListener("click", handleClick);
         };
     }, []);
-    
-    const menuRowStyle = (index): React.CSSProperties => {
-        if (index === 0)
-            return {...props.menuStyle?.row?.normal, borderTopRightRadius: props.menuStyle?.container?.borderRadius ?? 7, borderTopLeftRadius: props.menuStyle?.container?.borderRadius ?? 7}
-        if (index === props.items.length - 1)
-            return {...props.menuStyle?.row?.normal, borderBottomRightRadius: props.menuStyle?.container?.borderRadius ?? 7, borderBottomLeftRadius: props.menuStyle?.container?.borderRadius ?? 7}
-        return {...props.menuStyle?.row?.normal}
-    }
 
     const cleanStyles = () => {
         const styles = props.menuStyle?.row
@@ -97,8 +92,8 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
     const containerStyle = useMemo(() => {
         if (props.animated === false)
-            return `${styles.container} ${props.menuClassNames?.container ?? composeDefaultVariants()}`
-        return `${styles['container']}  ${styles[originClassName]} ${styles[getAnimationFromProps(open ? "In" : "Out")]} ${props.menuClassNames?.container ?? composeDefaultVariants()}`
+            return `${styles.container} ${props.menuClassName?.container ?? composeDefaultVariants()}`
+        return `${styles['container']}  ${styles[originClassName]} ${styles[getAnimationFromProps(open ? "In" : "Out")]} ${props.menuClassName?.container ?? composeDefaultVariants()}`
     }, [open])
 
 
@@ -123,11 +118,20 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
         
     }
 
+    const onClick = (item, event) => {
+        if (item.disabled){
+            event.preventDefault()
+            event.stopPropagation()
+            return
+        }
+        item.onClick()
+    }
+
     return (
     <div ref={props.containerRef} className={containerStyle} onAnimationEnd={transitionEnd} style={{top: screenSize.height, left: screenSize.width, ...animationStyle, ...props.menuStyle?.container}}>
         {props.items.map((item: ContextMenuItem, index) => {
             return (
-                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={`${styles.menuRow} ${props.menuClassNames?.row ?? (styles[props.variant?.theme + "MenuRow"])} ${item.className ?? ''}`} onClick={item.onClick} style={{/*...menuRowStyle(index),*/ ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
+                <div key={index} onMouseEnter={() => onMouseEnter(index)} onMouseLeave={onMouseLeave} className={`${styles.menuRow} ${item.disabled ? (item.disabledClassName ?? styles.disabledRow) : ''} ${props.menuClassName?.row ?? (styles[props.variant?.theme + "MenuRow"])} ${item.className ?? ''}`} onClick={(event) => onClick(item, event)} style={{/*...menuRowStyle(index),*/ ...cleanStyles(), ...item.style, ...hoveringStyle(item, index)}}>
                     <div>{item.label}</div>
                 </div>
             )

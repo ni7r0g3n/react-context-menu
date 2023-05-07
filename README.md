@@ -32,6 +32,14 @@ React context menu is a simple library to implement custom context menus in your
 <br>
 <br>
 **Menu nesting:** now you can nest menus one inside the other, each with its own items and styles.
+<br>
+<br>
+**Classes:** you will now be able to use your project's css classes and modules to style the menu and its individual components.
+<br>
+<br>
+**Disable options:** you can now disable items of the menu. You can also specify a class to be used on disabled options.
+<br>
+<br>
 Generic fixes and optimizations.
 
 <br><br>
@@ -97,6 +105,18 @@ return (
     </ContextMenu>
   </ContextMenu>
 );
+```
+
+### Disabling options
+
+It's also possible to disable an option by setting the `disabled` flag on the desired item. You can also use the `disabledClassName` prop to specify a class to use (by default it's a grayscale and blur filter).
+
+```
+const items = [
+  { label: "Create", onClick: () => alert("Create clicked") },
+  { label: "Edit", onClick: () => alert("Edit clicked"), disabled: true, disabledClassName: "class-name" },
+  { label: "Delete", onClick: () => alert("Delete clicked") },
+];
 ```
 
 ---

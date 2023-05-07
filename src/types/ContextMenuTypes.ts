@@ -16,7 +16,7 @@ interface ContextMenuProps extends ContextMenuEvents {
             hover?: React.CSSProperties
         };
     }
-    menuClassNames?:{
+    menuClassName?:{
         container?: string,
         row?: string,
     }
@@ -29,6 +29,7 @@ interface ContextMenuProps extends ContextMenuEvents {
  
 interface ContextMenuEvents {
     onOpen?: () => void;
+    onAfterOpen?: () => void;
     onClose?: () => void;
     onItemHoverIn?: (item: ContextMenuItem) => void;
     onItemHoverOut?: (item: ContextMenuItem) => void;
@@ -42,6 +43,8 @@ interface ContextMenuItem {
     style?: React.CSSProperties;
     hoverStyle?: React.CSSProperties;
     className?: string;
+    disabled?: boolean;
+    disabledClassName?: string;
 }
 
 interface mousePosition {
