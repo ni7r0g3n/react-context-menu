@@ -23,6 +23,10 @@ React context menu is a simple library to implement custom context menus in your
 
 ### News:
 
+`v0.2.2`
+
+- **Bugfix:** fixed a bug that prevented the menu from opening in the right spot when the document was scrollable. Refer to the [Additional Props](/react-context-menu/docs/Additional%20Props) page for more info.
+
 `v0.2.0`
 
 **Dynamic positioning:** now the context menu will open around the cursor depending on the available space. No more squashed menus.
