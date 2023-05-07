@@ -1,6 +1,6 @@
 <p style="text-align:left;">
 
-<a align="left">![Version](https://img.shields.io/badge/Version-0.1.3-brightgreen?style=flat-square) ![React](https://img.shields.io/badge/React-^18.2.0-lightblue?style=flat-square&logo=react) </a>
+<a align="left">![Version](https://img.shields.io/badge/Version-0.2.1-brightgreen?style=flat-square) ![React](https://img.shields.io/badge/React-^18.2.0-lightblue?style=flat-square&logo=react) </a>
 <a style="float: right">
 ![React](https://img.shields.io/badge/Status-In_Development-orange?style=flat-square)
 </a>
