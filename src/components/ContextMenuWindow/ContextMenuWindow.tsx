@@ -35,22 +35,22 @@ const ContextMenuWindow = (props: ContextMenuWindowProps) => {
 
     const screenWidth = () => {
         if (props.adaptive === false)
-            return props.position.x
+            return props.position.x + document.documentElement.scrollLeft
         return adaptiveWidth()
     }
 
     const screenHeight = () => {
         if (props.adaptive === false)
-            return props.position.y
+            return props.position.y + document.documentElement.scrollTop
         return adaptiveHeight()
     }
 
     const adaptiveWidth = () => {
-        return (props.position.x * 100)/window.innerWidth + 'vw'
+        return (props.position.x * 100)/document.documentElement.scrollWidth + 'vw'
     }
 
     const adaptiveHeight = () => {
-        return (props.position.y * 100)/window.innerHeight + 'vh'
+        return (props.position.y * 100)/document.documentElement.scrollHeight + 'vh'
     }
 
 
