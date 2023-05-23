@@ -19,14 +19,7 @@ function Item(props: ItemProps) {
         fireEvent('onItemHoverOut')
         setHovering(false)
     }, [])
-
-    const onKeyDown = useCallback((event) => {
-        if (event.key === 'Enter' || event.code === 'Space') {
-            onClick(event)
-        }
-    }, [])
-
-
+    
     const onClick = useCallback((event) => {
         if (props.item.disabled){
             event.preventDefault()
@@ -34,6 +27,12 @@ function Item(props: ItemProps) {
             return
         }
         props.item.onClick()
+    }, [])
+
+    const onKeyDown = useCallback((event) => {
+        if (event.key === 'Enter' || event.code === 'Space') {
+            onClick(event)
+        }
     }, [])
 
     const cleanStyles = useCallback(() => {
@@ -53,7 +52,7 @@ function Item(props: ItemProps) {
 
     const rowClassName = useMemo(() => {
         const disabled = props.item.disabled ? (props.item.disabledClassName ?? styles.disabledRow) : '';
-        const className = props.className ?? (styles[props.variant?.theme + "MenuRow"] ?? styles.lightMenuRow);
+        const className = props.className ?? (styles[`${props.variant?.theme}MenuRow`] ?? styles.lightMenuRow);
         const itemClassName = props.item.className ?? '';
         return `${styles.menuRow} ${disabled} ${className} ${itemClassName}`
     }, [props.className, props.item.className, props.item.disabled, props.item.disabledClassName, props.variant?.theme])
@@ -63,7 +62,8 @@ function Item(props: ItemProps) {
     <div 
         key={props.index}
         role='menuitem' 
-        onMouseEnter={() => onMouseEnter()} 
+        ref={props.itemRef}
+        onMouseEnter={onMouseEnter} 
         onMouseLeave={onMouseLeave} 
         className={rowClassName} 
         onClick={onClick}
@@ -71,8 +71,7 @@ function Item(props: ItemProps) {
         tabIndex={0}
         style={{...cleanStyles(), ...props.item.style, ...hoveringStyle()}}
     >
-        <div 
-            aria-description={props.item.label}
+        <div
         >{props.item.label}</div>
     </div>
   )
