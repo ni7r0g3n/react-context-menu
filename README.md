@@ -1,6 +1,6 @@
 <p style="text-align:left;">
 
-<a align="left">![Version](https://img.shields.io/badge/Version-0.2.2-brightgreen?style=flat-square) ![React](https://img.shields.io/badge/React-^18.2.0-lightblue?style=flat-square&logo=react) </a>
+<a align="left">![Version](https://img.shields.io/badge/Version-0.2.3-brightgreen?style=flat-square) ![React](https://img.shields.io/badge/React-^18.2.0-lightblue?style=flat-square&logo=react) </a>
 <a style="float: right">
 ![React](https://img.shields.io/badge/Status-In_Development-orange?style=flat-square)
 </a>
@@ -22,6 +22,10 @@ React context menu is a simple library to implement custom context menus in your
 - Nested menus will open one window each without closing the previous one. Might be desireable in some cases, I'll add the possibility to choose in the next versions.
 
 ### News:
+
+`v0.2.3`
+
+- **Refactoring and optimization**: the code has been refactored and optimized. The component is now much more lightweight and faster.
 
 `v0.2.2`
 
