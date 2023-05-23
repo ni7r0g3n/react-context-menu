@@ -20,11 +20,7 @@ interface ContextMenuProps extends ContextMenuEvents {
         container?: string,
         row?: string,
     }
-    variant?: {
-        opacity?: "solid" | "transparent";
-        theme?: "light" | "dark";
-        elevation?: "raised" | "flat";
-    }
+    variant?: Variant;
 }
  
 interface ContextMenuEvents {
@@ -60,6 +56,11 @@ interface transformOrigin {
     x: 0 | 100;
     y: 0 | 100;
 }
+interface Variant {
+    opacity?: "solid" | "transparent";
+    theme?: "light" | "dark";
+    elevation?: "raised" | "flat";
+}
 
 
-export type { ContextMenuProps, ContextMenuItem, mousePosition, transformOrigin, mousePositionWithOrigin }; 
+export type { ContextMenuProps, ContextMenuItem, mousePosition, transformOrigin, mousePositionWithOrigin, Variant }; 

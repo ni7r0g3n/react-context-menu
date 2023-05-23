@@ -1,11 +1,11 @@
 
-import React, {useState, useEffect, useRef, useLayoutEffect} from "react";
+import React, {useState, useRef, useLayoutEffect} from "react";
 import { ContextMenuProps } from "../../types";
 import ContextMenuWindow from "../ContextMenuWindow/ContextMenuWindow";
-import styles from './ContextMenu.module.css'
+import styles from './ContextMenu.module.css';
 import { mousePosition, mousePositionWithOrigin } from "../../types/ContextMenuTypes";
 
-const ContextMenu = (props: ContextMenuProps) => {
+export default function ContextMenu (props: ContextMenuProps) {
     const [show, setShow] = useState(false);
     const [mousePosition, setMousePosition] = useState<mousePositionWithOrigin>({x: 0, y: 0, origin: {x: 0, y: 0}});
     const [contextMenuSize, setContextMenuSize] = useState({width: 0, height: 0})
@@ -21,14 +21,14 @@ const ContextMenu = (props: ContextMenuProps) => {
     }, [show])
             
 
-    const onContextMenu = (e: React.MouseEvent) => {
+    function onContextMenu(e: React.MouseEvent) {
         e.preventDefault();
-        e.stopPropagation()
+        e.stopPropagation();
         openMenu({x: e.clientX, y: e.clientY})
     }
 
-    //use contextMenuSize to calculate if opening the context menu will make it go off screen, if so, open it to the left of the mouse
-    const calculatePosition = (position: mousePosition): mousePositionWithOrigin => {
+    
+    function calculatePosition (position: mousePosition): mousePositionWithOrigin {
         var processedPosition = {...position, origin: {x: 0, y: 0}} as mousePositionWithOrigin
     
         if (processedPosition.x + contextMenuSize.width > window.innerWidth) {
@@ -44,18 +44,21 @@ const ContextMenu = (props: ContextMenuProps) => {
         } else {
             processedPosition.origin.y = 0
         }
+
         return {...processedPosition}
     }
 
 
-    const openMenu = (position: mousePosition) => {
+    function openMenu(position: mousePosition) {
+        
         if (props.onOpen)
             props.onOpen();
+
         setMousePosition(calculatePosition(position))
         setShow(true)
     }
 
-    const onTransitionEnd = () => {
+    function onTransitionEnd() {
         setShow(false)
     }
 
@@ -71,5 +74,3 @@ const ContextMenu = (props: ContextMenuProps) => {
         </div>
     )
 }
-
-export default ContextMenu;
