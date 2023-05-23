@@ -1,8 +1,7 @@
 
-import React, {useState, useRef, useLayoutEffect} from "react";
+import React, {useState, useRef, useLayoutEffect, useCallback, useEffect} from "react";
 import { ContextMenuProps } from "../../types";
 import ContextMenuWindow from "../ContextMenuWindow/ContextMenuWindow";
-import styles from './ContextMenu.module.css';
 import { mousePosition, mousePositionWithOrigin } from "../../types/ContextMenuTypes";
 
 export default function ContextMenu (props: ContextMenuProps) {
@@ -19,16 +18,37 @@ export default function ContextMenu (props: ContextMenuProps) {
             })
         }
     }, [show])
+    
+    const onContextMenuKeyDown = useCallback((e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.code === 'Space') {
+            e.preventDefault();
+            e.target.dispatchEvent(
+                new MouseEvent(
+                    'contextmenu', 
+                    {
+                        bubbles: true, 
+                        cancelable: true, 
+                        clientX: (
+                            e.target as HTMLDivElement
+                        ).offsetLeft - document.documentElement.scrollLeft, 
+                        clientY: (
+                            e.target as HTMLDivElement
+                        ).offsetTop - document.documentElement.scrollTop
+                    }
+                )
+            )
             
+        }
+    }, [])
 
-    function onContextMenu(e: React.MouseEvent) {
+    const onContextMenu = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
         openMenu({x: e.clientX, y: e.clientY})
-    }
+    }, [])
 
     
-    function calculatePosition (position: mousePosition): mousePositionWithOrigin {
+    function calculatePosition(position: mousePosition): mousePositionWithOrigin {
         var processedPosition = {...position, origin: {x: 0, y: 0}} as mousePositionWithOrigin
     
         if (processedPosition.x + contextMenuSize.width > window.innerWidth) {
@@ -58,12 +78,12 @@ export default function ContextMenu (props: ContextMenuProps) {
         setShow(true)
     }
 
-    function onTransitionEnd() {
+    const onTransitionEnd = useCallback(() => {
         setShow(false)
-    }
+    }, [])
 
     return (
-        <div onContextMenu={onContextMenu}>
+        <div onKeyDown={onContextMenuKeyDown} onContextMenu={onContextMenu}>
             {props.children}
             {show ? <ContextMenuWindow 
                         position={mousePosition} 

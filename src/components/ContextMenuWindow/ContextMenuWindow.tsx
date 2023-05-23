@@ -13,19 +13,28 @@ export default function ContextMenuWindow (props: ContextMenuWindowProps) {
             props[event](item)
     }
 
-    function handleClick() {     
+    const handleClick = useCallback(() => {     
         setOpen(false)
         if (props.animated === false)
             props.onTransitionEnd()
-    }
+    }, [])
+
+    const onKeyUp = useCallback((event) => {
+        event.preventDefault()
+        if (event.key === 'Escape'){
+            handleClick()
+        }
+    }, [])
 
     useEffect(() => {
         window.addEventListener("click", handleClick);
+        window.addEventListener("keyup", onKeyUp);
         
         fireEvent('onAfterOpen')
         return () => {
             fireEvent('onClose')
             window.removeEventListener("click", handleClick);
+            window.removeEventListener("keyup", onKeyUp);
         };
     }, []);
 
@@ -48,12 +57,12 @@ export default function ContextMenuWindow (props: ContextMenuWindowProps) {
 
     const screenSize = {width: screenWidth(), height: screenHeight()};
     
-    const getAnimationFromProps = useCallback((direction: 'In' | 'Out') => {
-        if (typeof props.animated != "boolean")
+    function getAnimationFromProps(direction: 'In' | 'Out') {
+        if (typeof props.animated !== "boolean")
             return (props.animated?.animation ?? 'zoom')  + direction
         if (props.animated)
             return 'zoom' + direction
-    }, [props.animated])
+    }
 
     const originClassName = useMemo(() => {
         return `transformOrigin-${props.position?.origin.x}-${props.position?.origin.y}`
@@ -71,14 +80,14 @@ export default function ContextMenuWindow (props: ContextMenuWindowProps) {
 
 
     const animationStyle = useMemo(() => {
-        if (typeof props.animated != "boolean")
+        if (typeof props.animated !== "boolean")
             return {animationDuration: props.animated?.duration ?? '0.2s'}
         if (props.animated)
             return {animationDuration: '0.2s'}
         return {}
     }, [open])
 
-    function transitionEnd() {
+    function transitionEnd () {
         if (!open){
             fireEvent('onOutAnimationEnd')
             props.onTransitionEnd()
@@ -92,7 +101,8 @@ export default function ContextMenuWindow (props: ContextMenuWindowProps) {
     <div 
         ref={props.containerRef} 
         className={containerStyle} 
-        onAnimationEnd={transitionEnd} 
+        onAnimationEnd={transitionEnd}
+        role='menu'
         style={
             {
                 top: screenSize.height, 
