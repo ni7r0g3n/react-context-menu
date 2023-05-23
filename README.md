@@ -1,6 +1,6 @@
 <p style="text-align:left;">
 
-<a align="left">![Version](https://img.shields.io/badge/Version-0.2.4-brightgreen?style=flat-square) ![React](https://img.shields.io/badge/React-^18.2.0-lightblue?style=flat-square&logo=react) </a>
+<a align="left">![Version](https://img.shields.io/badge/Version-0.2.5-brightgreen?style=flat-square) ![React](https://img.shields.io/badge/React-^18.2.0-lightblue?style=flat-square&logo=react) </a>
 <a style="float: right">
 ![React](https://img.shields.io/badge/Status-In_Development-orange?style=flat-square)
 </a>
@@ -23,10 +23,10 @@ React context menu is a simple library to implement custom context menus in your
 
 ### News:
 
-`v0.2.4`
+`v0.2.5`
 
 - **Refactoring and optimization**: the code has been refactored and optimized. The component is now much more lightweight and faster.
-- **Accessibility**: the component is now compatible with basic accessibility standards. You can now open the menu with Enter/Spacebar, close it with Escape and navigate it with Tab. More complete accessibility features will be added in the future. Check the [Accessibility](https://ni7r0g3n.github.io/react-context-menu/docs/Accessibility) page for more info.
+- **Accessibility**: the component is now compatible with basic accessibility standards. You can now open the menu with Enter/Spacebar, close it with Escape and navigate it with Tab and arrows. More complete accessibility features will be added in the future. Check the [Accessibility](https://ni7r0g3n.github.io/react-context-menu/docs/Accessibility) page for more info.
 
 `v0.2.2`
 

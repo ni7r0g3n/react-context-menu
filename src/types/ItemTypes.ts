@@ -11,6 +11,7 @@ interface ItemProps {
     };  
     onItemHoverIn?: (item: ContextMenuItem) => void;
     onItemHoverOut?: (item: ContextMenuItem) => void;
+    itemRef: React.RefObject<HTMLDivElement>;
 }
 
 

@@ -1,5 +1,5 @@
 
-import React, {useState, useRef, useLayoutEffect, useCallback, useEffect} from "react";
+import React, {useState, useRef, useLayoutEffect, useCallback} from "react";
 import { ContextMenuProps } from "../../types";
 import ContextMenuWindow from "../ContextMenuWindow/ContextMenuWindow";
 import { mousePosition, mousePositionWithOrigin } from "../../types/ContextMenuTypes";
@@ -83,7 +83,7 @@ export default function ContextMenu (props: ContextMenuProps) {
     }, [])
 
     return (
-        <div onKeyDown={onContextMenuKeyDown} onContextMenu={onContextMenu}>
+        <div aria-haspopup onKeyDown={onContextMenuKeyDown} onContextMenu={onContextMenu}>
             {props.children}
             {show ? <ContextMenuWindow 
                         position={mousePosition} 
