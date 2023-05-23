@@ -10,24 +10,31 @@ function Item(props: ItemProps) {
             props[event](props.item)
     }
 
-    function onMouseEnter() {
+    const onMouseEnter = useCallback(() => {
         setHovering(true)
         fireEvent('onItemHoverIn')
-    }
+    }, [])
 
-    function onMouseLeave () {
+    const onMouseLeave = useCallback(() => {
         fireEvent('onItemHoverOut')
         setHovering(false)
-    }
+    }, [])
 
-    function onClick(event) {
+    const onKeyDown = useCallback((event) => {
+        if (event.key === 'Enter' || event.code === 'Space') {
+            onClick(event)
+        }
+    }, [])
+
+
+    const onClick = useCallback((event) => {
         if (props.item.disabled){
             event.preventDefault()
             event.stopPropagation()
             return
         }
         props.item.onClick()
-    }
+    }, [])
 
     const cleanStyles = useCallback(() => {
         const styles = props.style
@@ -54,14 +61,19 @@ function Item(props: ItemProps) {
 
   return (
     <div 
-        key={props.index} 
+        key={props.index}
+        role='menuitem' 
         onMouseEnter={() => onMouseEnter()} 
         onMouseLeave={onMouseLeave} 
         className={rowClassName} 
-        onClick={onClick} 
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+        tabIndex={0}
         style={{...cleanStyles(), ...props.item.style, ...hoveringStyle()}}
     >
-        <div>{props.item.label}</div>
+        <div 
+            aria-description={props.item.label}
+        >{props.item.label}</div>
     </div>
   )
 }
