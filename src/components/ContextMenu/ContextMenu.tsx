@@ -3,12 +3,14 @@ import React, {useState, useRef, useLayoutEffect, useCallback} from "react";
 import { ContextMenuProps } from "../../types";
 import ContextMenuWindow from "../ContextMenuWindow/ContextMenuWindow";
 import { mousePosition, mousePositionWithOrigin } from "../../types/ContextMenuTypes";
+import { useLang } from "../../hooks/useLang";
 
 export default function ContextMenu (props: ContextMenuProps) {
     const [show, setShow] = useState(false);
     const [mousePosition, setMousePosition] = useState<mousePositionWithOrigin>({x: 0, y: 0, origin: {x: 0, y: 0}});
     const [contextMenuSize, setContextMenuSize] = useState({width: 0, height: 0})
     const windowContainerRef = useRef(null)
+    const lang = useLang();
 
     useLayoutEffect(() => {
         if (windowContainerRef.current && show) {
@@ -83,7 +85,7 @@ export default function ContextMenu (props: ContextMenuProps) {
     }, [])
 
     return (
-        <div aria-haspopup onKeyDown={onContextMenuKeyDown} onContextMenu={onContextMenu}>
+        <div aria-haspopup aria-label={lang['aria-label']} onKeyDown={onContextMenuKeyDown} onContextMenu={onContextMenu}>
             {props.children}
             {show ? <ContextMenuWindow 
                         position={mousePosition} 

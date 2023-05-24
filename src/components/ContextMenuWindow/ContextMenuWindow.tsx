@@ -3,12 +3,14 @@ import { ContextMenuWindowProps, ContextMenuItem } from '../../types';
 import styles from './ContextMenuWindow.module.css'
 import Item from '../Item/Item';
 import useAccessibleFocus from '../../hooks/useAccessibleFocus';
+import { useLang } from '../../hooks/useLang';
 
 
 export default function ContextMenuWindow (props: ContextMenuWindowProps) {
     
     const [open, setOpen] = useState(true)
     const itemsRefs = useAccessibleFocus(props.items)
+    const lang = useLang();
 
     function fireEvent (event, item?: ContextMenuItem) {
         if (props[event])
@@ -106,6 +108,7 @@ export default function ContextMenuWindow (props: ContextMenuWindowProps) {
         className={containerStyle} 
         onAnimationEnd={transitionEnd}
         role='menu'
+        aria-label={lang.contextmenu}
         style={
             {
                 top: screenSize.height, 
