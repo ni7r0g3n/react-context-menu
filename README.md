@@ -121,10 +121,15 @@ return (
 
 It's also possible to disable an option by setting the `disabled` flag on the desired item. You can also use the `disabledClassName` prop to specify a class to use (by default it's a grayscale and blur filter).
 
-```
+```javascript
 const items = [
   { label: "Create", onClick: () => alert("Create clicked") },
-  { label: "Edit", onClick: () => alert("Edit clicked"), disabled: true, disabledClassName: "class-name" },
+  {
+    label: "Edit",
+    onClick: () => alert("Edit clicked"),
+    disabled: true,
+    disabledClassName: "class-name",
+  },
   { label: "Delete", onClick: () => alert("Delete clicked") },
 ];
 ```
