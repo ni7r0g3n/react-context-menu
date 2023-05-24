@@ -85,7 +85,7 @@ export default function ContextMenu (props: ContextMenuProps) {
     }, [])
 
     return (
-        <div aria-haspopup aria-label={lang['aria-label']} onKeyDown={onContextMenuKeyDown} onContextMenu={onContextMenu}>
+        <div aria-haspopup tabIndex={0} aria-label={lang['aria-label']} onKeyDown={onContextMenuKeyDown} onContextMenu={onContextMenu}>
             {props.children}
             {show ? <ContextMenuWindow 
                         position={mousePosition} 
