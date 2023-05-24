@@ -1,6 +1,6 @@
 {
   "name": "@ni7r0g3n/react-context-menu",
-  "version": "0.2.5", 
+  "version": "0.2.6", 
   "description": "React custom context menu",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -44,6 +44,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "repository":"https://github.com/ni7r0g3n/react-context-menu",
+  "homepage": "https://ni7r0g3n.github.io/react-context-menu/",
   "keywords": [
     "react",
     "context",
