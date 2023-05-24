@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { ItemProps } from '../../types/ItemTypes';
 import styles from './Item.module.css';
+import { useLang } from '../../hooks/useLang';
 
 function Item(props: ItemProps) {
     const [hovering, setHovering] = useState(false);
@@ -9,6 +10,8 @@ function Item(props: ItemProps) {
         if (props[event])
             props[event](props.item)
     }
+
+    const lang = useLang();
 
     const onMouseEnter = useCallback(() => {
         setHovering(true)
@@ -61,7 +64,9 @@ function Item(props: ItemProps) {
   return (
     <div 
         key={props.index}
-        role='menuitem' 
+        role='menuitem'
+        aria-label={lang.contextmenuitem}
+        aria-disabled={props.item.disabled}
         ref={props.itemRef}
         onMouseEnter={onMouseEnter} 
         onMouseLeave={onMouseLeave} 
@@ -71,7 +76,7 @@ function Item(props: ItemProps) {
         tabIndex={0}
         style={{...cleanStyles(), ...props.item.style, ...hoveringStyle()}}
     >
-        <div
+        <div  
         >{props.item.label}</div>
     </div>
   )
